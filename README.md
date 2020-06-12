@@ -389,6 +389,16 @@ end
 ```ruby
 prompt.ask('What is your username?') do |q|
   q.validate { |input| input =~ /^[^\.]+\.[^\.]+/ }
+  q.messages[:valid?] = 'Invalid name'
+end
+```
+
+```ruby
+prompt.ask('What is your username?') do |q|
+  q.validate do |input| 
+    q.messages[:valid?] = '%s is not a valid name!' % [input.inspect]
+    input =~ /^[^\.]+\.[^\.]+/
+  end
 end
 ```
 
